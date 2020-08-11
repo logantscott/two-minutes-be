@@ -10,7 +10,7 @@ module.exports = async({ users = 20, goals = 100, measures = 300, datapoints = 1
   const createdUsers = await User.create([...Array(users)].map(() => ({
     name: chance.name(),
     email: chance.email({ domain: 'email.com' }),
-    password: chance.string()
+    password: '1234'
   })));
 
   const createdGoals = await Goal.create([...Array(goals)].map(() => ({

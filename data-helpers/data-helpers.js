@@ -28,11 +28,8 @@ beforeEach(async() => {
 
   await User.create({
     name: 'Logan Scott',
-    phone: '123 456 7890',
     email: 'email@email.com',
-    password: '1234',
-    communicationMedium: 'email',
-    imageUrl: 'placekitten.com/400/400'
+    password: '1234'
   });
 
   return agent

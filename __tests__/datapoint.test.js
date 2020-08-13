@@ -8,7 +8,6 @@ const Measure = require('../lib/models/Measure');
 describe('datapoint routes', () => {
   it('can create a datapoint', async() => {
     let user = prepare(await User.findOne());
-    User.authorize(user.email, '1234');
     let goal = prepare(await Goal.findOne({ user: user._id }));
     let measure = prepare(await Measure.findOne({ goal: goal._id }));
 

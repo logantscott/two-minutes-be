@@ -33,7 +33,7 @@ beforeEach(async() => {
   });
 
   return agent
-    .post('/api/v1/users/login')
+    .post('/api/v1/auth/login')
     .send({
       email: 'email@email.com',
       password: '1234'

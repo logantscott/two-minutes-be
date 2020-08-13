@@ -20,4 +20,8 @@ describe('two-minutes-be routes', () => {
     await mongoose.connection.close();
     return mongod.stop();
   });
+
+  it('tests app', () => {
+    return expect(true).toEqual(true);
+  });
 });

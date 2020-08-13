@@ -7,7 +7,6 @@ const Goal = require('../lib/models/Goal');
 describe('measure routes', () => {
   it('can create a measure', async() => {
     let user = prepare(await User.findOne());
-    User.authorize(user.email, '1234');
     let goal = prepare(await Goal.findOne({ user: user._id }));
 
     return agent

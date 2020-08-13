@@ -6,7 +6,6 @@ const User = require('../lib/models/User');
 describe('goal routes', () => {
   it('can create a goal', async() => {
     let user = prepare(await User.findOne());
-    User.authorize(user.email, '1234');
 
     return agent
       .post('/api/v1/goals')

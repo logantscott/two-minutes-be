@@ -11,26 +11,47 @@ module.exports = async({ users = 20, goals = 100, measures = 300, datapoints = 1
     name: chance.name(),
     email: chance.email({ domain: 'email.com' }),
     password: '1234'
-  })));
+  })))
+    .then(async(res) => {
+      await Goal.create(res.map((user) => ({
+        name: chance.sentence(),
+        user: user._id
+      })))
+        .then(async(res) => {
+          await Measure.create(res.map((goal) => {
+            return {
+              name: chance.word(),
+              user: goal.user,
+              goal: goal._id
+            };
+          }))
+            .then(async(res) => {
+              await Datapoint.create(res.map((measure) => ({
+                completed: chance.bool({ likelihood: 75 }),
+                measure: measure._id
+              })));
+            });
+        });
+    });
 
-  const createdGoals = await Goal.create([...Array(goals)].map(() => ({
-    name: chance.sentence(),
-    user: chance.pickone(createdUsers)._id
-  })));
+  // const createdGoals = await Goal.create([...Array(goals)].map(() => ({
+  //   name: chance.sentence(),
+  //   user: chance.pickone(createdUsers)._id
+  // })));
   
-  const createdMeasures = await Measure.create([...Array(measures)].map(() => {
-    const goal = chance.pickone(createdGoals);
+  // const createdMeasures = await Measure.create([...Array(measures)].map(() => {
+  //   const goal = chance.pickone(createdGoals);
 
-    return {
-      name: chance.word(),
-      user: goal.user,
-      goal: goal._id
-    };
-  }));
+  //   return {
+  //     name: chance.word(),
+  //     user: goal.user,
+  //     goal: goal._id
+  //   };
+  // }));
 
-  await Datapoint.create([...Array(datapoints)].map(() => ({
-    name: chance.bool({ likelihood: 75 }),
-    measure: chance.pickone(createdMeasures)._id
-  })));
+  // await Datapoint.create([...Array(datapoints)].map(() => ({
+  //   name: chance.bool({ likelihood: 75 }),
+  //   measure: chance.pickone(createdMeasures)._id
+  // })));
 
 };
